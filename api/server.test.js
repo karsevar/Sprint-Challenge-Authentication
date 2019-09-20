@@ -52,18 +52,27 @@ describe("POST /api/auth/login", () => {
     });
 
     describe('testing login endpoint', () => {
-        it("should add a new user to the table", () => {
-            return request(server)
+        it("should add a new user to the table", async () => {
+            const response = await request(server)
             .post('/api/auth/register') 
             .send({username: 'me', password: 'beast'})
-            .expect(201)
+            
+            expect(response.status).toBe(201)
         })
         it('should return a 400 status when given an incorrect password', () => {
             return request(server)
                 .post('/api/auth/login')
-                .send({username: 'me', password: 'flea'})
+                .send({username: 'me', password: 'me'})
                 .then(res => {
                     expect(res.status).toBe(401)
+                })
+        })
+        it('should return the object {message: invalid credentials}', () => {
+            return request(server)
+                .post('/api/auth/login')
+                .send({username: 'me', password: 'me'})
+                .then(res => {
+                    expect(res.body).toEqual({message: 'Invalid credentials'})
                 })
         })
 
