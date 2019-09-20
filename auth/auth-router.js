@@ -1,3 +1,5 @@
+const userDb = require('./authModel.js');
+
 const router = require('express').Router();
 
 router.post('/register', (req, res) => {
