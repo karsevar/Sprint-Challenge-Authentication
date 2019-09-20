@@ -16,6 +16,7 @@ describe('auth-route.js', () => {
                 .expect(201)
         })
 
+
         it('should return the id of the newly created user with a message', () => {
             return request(server)
                 .post('/api/auth/register') 
@@ -25,7 +26,7 @@ describe('auth-route.js', () => {
                 })
         })
     })
-    
+
 
     describe("GET /api/jokes", () => {
         it('should return a 401 when not given credentials', () => {
@@ -46,21 +47,21 @@ describe('auth-route.js', () => {
 
 describe("POST /api/auth/login", () => {
 
-    // afterAll(async () => {
-    //     await db('users').truncate();
-    // });
+    afterAll(async () => {
+        await db('users').truncate();
+    });
 
     describe('testing login endpoint', () => {
-        // it("should add a new user to the table", () => {
-        //     return request(server)
-        //     .post('/api/auth/register') 
-        //     .send({username: 'mason', password: 'beast'})
-        //     .expect(201)
-        // })
-        it('should return a 201 ok status code when given a pre existing username and password', () => {
+        it("should add a new user to the table", () => {
+            return request(server)
+            .post('/api/auth/register') 
+            .send({username: 'me', password: 'beast'})
+            .expect(201)
+        })
+        it('should return a 400 status when given an incorrect password', () => {
             return request(server)
                 .post('/api/auth/login')
-                .send({username: 'mason', password: 'alice'})
+                .send({username: 'me', password: 'flea'})
                 .then(res => {
                     expect(res.status).toBe(401)
                 })
