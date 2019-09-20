@@ -40,11 +40,27 @@ Demonstrate your understanding of this week's concepts by answering the followin
 
 - [ ] What is the purpose of using _sessions_?
 
+Sessions allow you to store information about the logged in user (much like json web tokens) with the only difference being that the user data is stored in the cookie.
+The advantages of sessions is that you can save the username or id in the session object itself and reference said object anywhere in the application. 
+
 - [ ] What does bcrypt do to help us store passwords in a secure manner.
+
+Bcrypt allows us to hash (or rather encode) strings (in this case passwords) into an encrypted string. Theoretically this method slows down people from stealing passwords and confidential information from your application.
 
 - [ ] What does bcrypt do to slow down attackers?
 
+In the bcryptjs library you have the hashSync method which allows you to specify the amount of rehashing you want the passed string to undergo. Theoretically the higher the rehash number the more difficult the hash is to decrypt. An example of the hashSync() method is:
+``` 
+let user = req.body;
+
+const hash = bcrypt.hashSync(user.password, 14);
+user.password = hash;
+```
+As you can see the user.password is being rehashed 14 times.
+
 - [ ] What are the three parts of the JSON Web Token?
+
+The three parts of a JSON Web Token are the header, the payload (which contains the data you want to persist about the user), and the verification token (which tells the program whether the token is genuine or has been tampered with).
 
 ## Minimum Viable Product
 
