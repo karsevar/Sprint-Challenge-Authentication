@@ -24,7 +24,7 @@ describe('authModel.js helper functions', () => {
         it('should return an object when provided the username', async () => {
             let user = await userDb.add({username: 'masonkarse', password: 'mk'})
             let mason = await userDb.findBy({username: 'masonkarse'})
-            expect(mason[0].id).toEqual(1)
+            expect(mason[0]).toEqual({username: 'masonkarse', password: 'mk', id: 1})
         })
     }) 
 })
